@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catering Services</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/"><i class="bi bi-cup-hot-fill me-2"></i>Catering Service</a>
+            <div class="nav-links">
+                <% if (user) { %>
+                    <a href="/dashboard" class="btn btn-outline-light me-2">Dashboard</a>
+                    <a href="/logout" class="btn btn-danger">Logout</a>
+                <% } else { %>
+                    <a href="/login" class="btn btn-outline-light me-2">Login</a>
+                    <a href="/register" class="btn btn-primary">Register</a>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Content -->
+    <div class="bg-dark text-white text-center py-5 mb-5 shadow-sm">
+        <div class="container py-4">
+            <h1 class="display-4 fw-bold mb-3">Welcome to Our Catering Service</h1>
+            <p class="lead mb-4 col-md-8 mx-auto text-light">We provide delicious catering services and full event packages tailored to make your special events unforgettable.</p>
+            
+            <% if (!user) { %>
+                <a href="/register" class="btn btn-primary btn-lg me-2 px-4">Get Started</a>
+                <a href="/login" class="btn btn-outline-light btn-lg px-4">Sign In</a>
+            <% } else { %>
+                <a href="/dashboard" class="btn btn-success btn-lg px-4">Go to My Dashboard</a>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Our Core Services Section -->
+    <div class="container my-5">
+        <div class="text-center mb-5">
+            <h6 class="text-primary text-uppercase fw-bold">What We Offer</h6>
+            <h2 class="fw-bold">Services for Every Occasion</h2>
+            <p class="text-muted">From intimate family dinners to large corporate galas, we've got you covered.</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Service 1 -->
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <div class="card-body">
+                        <div class="bg-primary-subtle text-primary rounded-circle d-inline-flex p-3 mb-3">
+                            <i class="bi bi-heart-fill fs-2"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Wedding Reception</h5>
+                        <p class="card-text text-muted">Full-service wedding catering including custom buffet setups, table service, and ceremonial cake displays.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <div class="card-body">
+                        <div class="bg-success-subtle text-success rounded-circle d-inline-flex p-3 mb-3">
+                            <i class="bi bi-briefcase-fill fs-2"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Corporate Events</h5>
+                        <p class="card-text text-muted">Professional meal boxes, seminar buffets, and executive luncheons tailored for business schedules.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <div class="card-body">
+                        <div class="bg-warning-subtle text-warning rounded-circle d-inline-flex p-3 mb-3">
+                            <i class="bi bi-balloon-fill fs-2"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Private Parties</h5>
+                        <p class="card-text text-muted">Birthdays, anniversaries, and reunions with flexible menu choices to fit your guests' tastes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Catering Packages Preview -->
+    <div class="bg-white py-5 my-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h6 class="text-primary text-uppercase fw-bold">Pricing Options</h6>
+                <h2 class="fw-bold">Popular Catering Packages</h2>
+            </div>
+
+            <div class="row g-4">
+                <!-- Standard Package -->
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-light text-center py-3">
+                            <h5 class="mb-0 fw-bold">Standard</h5>
+                            <h3 class="mt-2 text-primary">₱300 <small class="fs-6 text-muted">/ guest</small></h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2"><i class="bi bi-check-lg text-success me-2"></i>3 Main Courses</li>
+                                <li class="mb-2"><i class="bi bi-check-lg text-success me-2"></i>1 Rice & 1 Beverage</li>
+                                <li class="mb-2"><i class="bi bi-check-lg text-success me-2"></i>1 Dessert Option</li>
+                                <li class="mb-2 text-muted"><i class="bi bi-x-lg text-danger me-2"></i>Basic Buffet Setup</li>
+                            </ul>
+                            <a href="<%= user ? '/dashboard' : '/login' %>" class="btn btn-outline-primary w-100">Choose Standard</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deluxe Package -->
+                <div class="col-md-4">
+                    <div class="card border-primary shadow h-100 position-relative">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-primary px-3">
+                            MOST POPULAR
+                        </span>
+                        <div class="card-header bg-primary text-white text-center py-3">
+                            <h5 class="mb-0 fw-bold">Deluxe</h5>
+                            <h3 class="mt-2 text-white">₱500 <small class="fs-6 text-white-50">/ guest</small></h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2"><i class="bi bi-check-lg text-success me-2"></i>4 Main Courses</li>
+                                <li class="mb-2"><i class="bi bi-check-lg text-success me-2"></i>1 Pasta Dish</li>
+                                <li class="mb-2"><i class="bi bi-check-lg text-success me-2"></i>2 Desserts & Bottomless Drinks</li>
+                                <li class="mb-2"><i class="bi bi-check-lg text-success me-2"></i>Standard Buffet Floral Setup</li>
+                            </ul>
+                            <a href="<%= user ? '/dashboard' : '/login' %>" class="btn btn-primary w-100">Choose Deluxe</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Premium Package -->
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-light text-center py-3">
+                            <h5 class="mb-0 fw-bold">Premium</h5>
+                            <h3 class="mt-2 text-primary">₱800 <small class="fs-6 text-muted">/ guest</small></h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2"><i class="bi bi-check-lg text-success me-2"></i>5 Premium Main Courses</li>
+                                <li class="mb-2"><i class="bi bi-check-lg text-success me-2"></i>Appetizer & Soup Bar</li>
+                                <li class="mb-2"><i class="bi bi-check-lg text-success me-2"></i>3 Desserts & Special Drinks</li>
+                                <li class="mb-2"><i class="bi bi-check-lg text-success me-2"></i>VIP Table & Complete Setup</li>
+                            </ul>
+                            <a href="<%= user ? '/dashboard' : '/login' %>" class="btn btn-outline-primary w-100">Choose Premium</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why Choose Us -->
+    <div class="container my-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <h6 class="text-primary text-uppercase fw-bold">Why Choose Us</h6>
+                <h2 class="fw-bold mb-4">Fresh Ingredients, Professional Service</h2>
+                <div class="d-flex mb-3">
+                    <div class="me-3 text-primary fs-3"><i class="bi bi-award-fill"></i></div>
+                    <div>
+                        <h5 class="fw-bold mb-1">Experienced Chefs</h5>
+                        <p class="text-muted">Our culinary team prepares dishes fresh on the day of your event.</p>
+                    </div>
+                </div>
+                <div class="d-flex mb-3">
+                    <div class="me-3 text-primary fs-3"><i class="bi bi-person-check-fill"></i></div>
+                    <div>
+                        <h5 class="fw-bold mb-1">Full-Service Waitstaff</h5>
+                        <p class="text-muted">Uniformed staff available to serve food, clear tables, and assist guests.</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="me-3 text-primary fs-3"><i class="bi bi-shield-check"></i></div>
+                    <div>
+                        <h5 class="fw-bold mb-1">Hygienic & Safe</h5>
+                        <p class="text-muted">Strict adherence to food safety standards from prep to delivery.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="bg-secondary-subtle rounded-3 p-5 text-center">
+                    <i class="bi bi-shop fs-1 text-secondary mb-3 d-block"></i>
+                    <h4 class="fw-bold">Ready to make a reservation?</h4>
+                    <p class="text-muted">Sign up or log in now to select your event date, choose your package, and customize your menu.</p>
+                    <% if (!user) { %>
+                        <a href="/register" class="btn btn-primary me-2">Create Account</a>
+                    <% } else { %>
+                        <a href="/dashboard" class="btn btn-success">Book Event Now</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white-50 text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">&copy; <%= new Date().getFullYear() %> Catering Service. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

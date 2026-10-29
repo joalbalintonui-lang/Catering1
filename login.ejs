@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Catering App</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #dbeeff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .box {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 360px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Top Curved Header Banner */
+        .header-banner {
+            background: linear-gradient(135deg, #02394a 0%, #005a70 100%);
+            color: #ffffff;
+            padding: 45px 20px 55px;
+            border-bottom-left-radius: 50% 30px;
+            border-bottom-right-radius: 50% 30px;
+        }
+
+        .header-banner h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .header-banner p {
+            font-size: 0.85rem;
+            color: #d1d5db;
+            margin-bottom: 18px;
+        }
+
+        .register-btn {
+            display: inline-block;
+            border: 1.5px solid #ffffff;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 6px 36px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .register-btn:hover {
+            background-color: #ffffff;
+            color: #02394a;
+        }
+
+        /* Main Content Container */
+        .content {
+            padding: 30px 30px 35px;
+        }
+
+        .content h3 {
+            font-size: 1.75rem;
+            color: #222222;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        /* Form Inputs */
+        .group {
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 42px 12px 16px;
+            border: none;
+            background-color: #f1f3f6;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #333333;
+            outline: none;
+            transition: background-color 0.2s ease;
+        }
+
+        input::placeholder {
+            color: #9aa0a6;
+        }
+
+        input:focus {
+            background-color: #e8ecef;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 16px;
+            color: #555555;
+            font-size: 0.95rem;
+            pointer-events: none;
+        }
+
+        .forgot-pass {
+            display: block;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666666;
+            text-decoration: none;
+            margin-top: 12px;
+            margin-bottom: 22px;
+            transition: color 0.2s ease;
+        }
+
+        .forgot-pass:hover {
+            color: #0081a7;
+        }
+
+        /* Main Submit Button */
+        .submit-btn {
+            background: linear-gradient(90deg, #023a4b 0%, #00a4b4 100%);
+            color: #ffffff;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            width: 100%;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 164, 180, 0.25);
+            transition: opacity 0.2s ease, transform 0.1s ease;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.92;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Social Divider & Icons */
+        .social-text {
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 0.78rem;
+            color: #777777;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333333;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .social-btn:hover {
+            background-color: #f8f9fa;
+            border-color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <!-- Top Banner Header -->
+        <div class="header-banner">
+            <h2>Hello, Welcome</h2>
+            <p>Don't have an Account</p>
+            <a href="/register" class="register-btn">Register</a>
+        </div>
+
+        <!-- Main Form Area -->
+        <div class="content">
+            <h3>Login</h3>
+
+            <form action="/login" method="POST">
+                <div class="group">
+                    <div class="input-wrapper">
+                        <input type="email" id="user_email" name="user_email" placeholder="Username" required>
+                        <i class="fa-solid fa-user input-icon"></i>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <div class="input-wrapper">
+                        <input type="password" id="user_password" name="user_password" placeholder="Password" required>
+                        <i class="fa-solid fa-lock input-icon"></i>
+                    </div>
+                </div>
+
+
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+
+            <p class="social-text">or login with social platforms</p>
+
+            <div class="social-icons">
+                <a href="#" class="social-btn" title="Google"><i class="fa-brands fa-google"></i></a>
+                <a href="#" class="social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

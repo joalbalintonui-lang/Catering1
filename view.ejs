@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reservations - Catering App</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            padding: 30px;
+            /* Page transition animation */
+            animation: fadeInPage 0.4s ease-out forwards;
+        }
+
+        /* Page Transitions */
+        @keyframes fadeInPage {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-fade-out {
+            animation: fadeOutPage 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+        }
+
+        @keyframes fadeOutPage {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.98);
+            }
+        }
+
+        /* Top Header & Navigation */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eef2f5;
+            animation: headerSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes headerSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h2 {
+            color: #2c3e50;
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Nav Buttons & Animations */
+        .nav-btn {
+            position: relative;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            overflow: hidden;
+            display: inline-block;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0) scale(0.97);
+        }
+
+        .btn-new {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+        .btn-new:hover {
+            background-color: #218838;
+        }
+
+        .btn-link {
+            background-color: #f8f9fa;
+            color: #495057;
+            border: 1px solid #ced4da;
+        }
+
+        .btn-link:hover {
+            background-color: #e9ecef;
+            color: #212529;
+        }
+
+        .btn-logout {
+            background-color: #fff0f0;
+            color: #dc3545;
+            border: 1px solid #f5c6cb;
+        }
+
+        .btn-logout:hover {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+
+        /* Click Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+
+        .btn-link .ripple, .btn-logout .ripple {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Table Styles */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #eef2f5;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.92rem;
+            min-width: 900px;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #495057;
+            font-weight: 600;
+            padding: 14px 12px;
+            border-bottom: 2px solid #dee2e6;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #eef2f5;
+            color: #495057;
+            vertical-align: middle;
+        }
+
+        /* Table Row Entrance & Hover Animations */
+        tbody tr {
+            opacity: 0;
+            animation: fadeInUp 0.4s ease-out forwards;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f8fdf9;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Status Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .status-paid {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        /* Action Buttons */
+        .action-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .btn-pay {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-pay:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        .btn-del {
+            background-color: #fff0f0;
+            color: #dc3545;
+            padding: 5px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #f5c6cb;
+            transition: all 0.2s ease;
+        }
+
+        .btn-del:hover {
+            background-color: #dc3545;
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .empty-row {
+            text-align: center;
+            padding: 30px;
+            color: #6c757d;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainContainer">
+        <!-- Header Section -->
+        <div class="header">
+            <h2>Reservations for <%= user.user_name %></h2>
+            <div class="nav-links">
+                <a href="/" class="nav-btn btn-new">+ New Booking</a>
+                <a href="/logout" class="nav-btn btn-logout">Logout</a>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Contact Name</th>
+                        <th>Event Date</th>
+                        <th>Package</th>
+                        <th>Guests</th>
+                        <th>Address</th>
+                        <th>Total Price</th>
+                        <th>Payment Status</th>
+                        <th>Payment Method</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (bookings.length > 0) { %>
+                        <% bookings.forEach((item, index) => { %>
+                            <tr style="animation-delay: <%= index * 0.05 %>s;">
+                                <td><strong>#<%= item.id %></strong></td>
+                                <td><%= item.customer_name %></td>
+                                <td><%= new Date(item.event_date).toISOString().split('T')[0] %></td>
+                                <td><%= item.package_type %></td>
+                                <td><%= item.guest_count %></td>
+                                <td><%= item.address %></td>
+                                <td><strong>₱<%= item.total_price ? Number(item.total_price).toLocaleString() : '0' %></strong></td>
+                                <td>
+                                    <span class="badge <%= item.payment_status === 'Paid' ? 'status-paid' : 'status-pending' %>">
+                                        <%= item.payment_status || 'Pending' %>
+                                    </span>
+                                </td>
+                                <td><%= item.payment_method || 'N/A' %></td>
+                                <td>
+                                    <div class="action-links">
+                                        <% if (item.payment_status !== 'Paid') { %>
+                                            <a href="/checkout/<%= item.id %>" class="btn-pay animated-link">Pay Now</a>
+                                        <% } %>
+                                        <a href="/delete/<%= item.id %>" class="btn-del animated-link" onclick="return confirm('Cancel this reservation?')">Cancel</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr style="animation-delay: 0.1s;">
+                            <td colspan="10" class="empty-row">No reservations found. Click <strong>+ New Booking</strong> to get started!</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navButtons = document.querySelectorAll('.nav-btn, .animated-link');
+            const container = document.getElementById('mainContainer');
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    const targetUrl = this.getAttribute('href');
+
+                    // If it's a link cancel/delete confirmation that was rejected, don't trigger animation
+                    if (this.getAttribute('onclick') && this.getAttribute('onclick').includes('confirm')) {
+                        // Let inline onclick execute first
+                    }
+
+                    // Add Ripple Effect
+                    const rect = this.getBoundingClientRect();
+                    const circle = document.createElement('span');
+                    const diameter = Math.max(rect.width, rect.height);
+                    const radius = diameter / 2;
+
+                    circle.style.width = circle.style.height = `${diameter}px`;
+                    circle.style.left = `${e.clientX - rect.left - radius}px`;
+                    circle.style.top = `${e.clientY - rect.top - radius}px`;
+                    circle.classList.add('ripple');
+
+                    const existingRipple = this.querySelector('.ripple');
+                    if (existingRipple) {
+                        existingRipple.remove();
+                    }
+
+                    this.appendChild(circle);
+
+                    // Page Exit Fade-Out Animation prior to navigation
+                    if (targetUrl && targetUrl !== '#' && !targetUrl.startsWith('javascript:')) {
+                        e.preventDefault();
+                        container.classList.add('page-fade-out');
+                        
+                        setTimeout(() => {
+                            window.location.href = targetUrl;
+                        }, 280); // Delays page navigation slightly to show animation
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

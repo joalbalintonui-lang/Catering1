@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout & Payment</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .card { max-width: 500px; margin: 0 auto; border: 1px solid #ddd; padding: 25px; border-radius: 8px; }
+        .summary-item { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .total { font-size: 1.2em; font-weight: bold; color: #28a745; margin-top: 15px; }
+        select, button { width: 100%; padding: 10px; margin-top: 10px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Order Checkout</h2>
+        <div class="summary-item"><span>Customer:</span> <strong><%= booking.customer_name %></strong></div>
+        <div class="summary-item"><span>Package:</span> <strong><%= booking.package_type %></strong></div>
+        <div class="summary-item"><span>Guests:</span> <strong><%= booking.guest_count %> Persons</strong></div>
+        <div class="summary-item total">
+            <span>Total Cost:</span>
+            <span>₱<%= booking.total_price ? Number(booking.total_price).toLocaleString() : '0' %></span>
+        </div>
+
+        <form action="/process-payment" method="POST">
+            <input type="hidden" name="booking_id" value="<%= booking.id %>">
+            <label><strong>Select Payment Method:</strong></label>
+            <select name="payment_method" required>
+                <option value="Credit/Debit Card">Credit / Debit Card</option>
+                <option value="GCash / E-Wallet">GCash / E-Wallet</option>
+                <option value="Cash on Event">Cash on Event</option>
+            </select>
+            <button type="submit">Pay & Confirm Booking</button>
+        </form>
+    </div>
+</body>
+</html>

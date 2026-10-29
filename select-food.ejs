@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Event Menu - Catering App</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            color: #333;
+        }
+
+        .card {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 680px;
+            padding: 35px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eef2f5;
+        }
+
+        .header h2 {
+            color: #2c3e50;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        .header strong {
+            color: #28a745;
+        }
+
+        .category {
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #007bff;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .item-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+
+        label {
+            background: #f8f9fa;
+            border: 1px solid #ced4da;
+            padding: 10px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #495057;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        label:hover {
+            background-color: #e9ecef;
+            border-color: #adb5bd;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #28a745;
+            cursor: pointer;
+        }
+
+        /* Active highlight when checked */
+        label:has(input:checked) {
+            background-color: #e8f5e9;
+            border-color: #28a745;
+            color: #1b5e20;
+            font-weight: 600;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        button:active {
+            transform: scale(0.99);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="header">
+            <h2>Select Menu Items</h2>
+            <p>Package Selected: <strong><%= booking.package_type %></strong></p>
+        </div>
+        
+        <form action="/save-food" method="POST">
+            <input type="hidden" name="booking_id" value="<%= booking.id %>">
+            
+            <!-- Category 1: Beef Specials (5 items) -->
+            <div class="category"> Beef Specialties</div>
+            <div class="item-list">
+                <label><input type="checkbox" name="food_items" value="Beef Caldereta"> Beef Caldereta</label>
+                <label><input type="checkbox" name="food_items" value="Beef Broccoli"> Beef Broccoli</label>
+                <label><input type="checkbox" name="food_items" value="Beef Kare-Kare"> Beef Kare-Kare</label>
+                <label><input type="checkbox" name="food_items" value="Roast Beef with Mushroom Gravy"> Roast Beef w/ Gravy</label>
+                <label><input type="checkbox" name="food_items" value="Beef Stroganoff"> Beef Stroganoff</label>
+            </div>
+
+            <!-- Category 2: Pork Favorites (5 items) -->
+            <div class="category"> Pork Favorites</div>
+            <div class="item-list">
+                <label><input type="checkbox" name="food_items" value="Pork Menudo"> Pork Menudo</label>
+                <label><input type="checkbox" name="food_items" value="Sweet & Sour Pork"> Sweet & Sour Pork</label>
+                <label><input type="checkbox" name="food_items" value="Pork Hamonado"> Pork Hamonado</label>
+                <label><input type="checkbox" name="food_items" value="Pork Baby Back Ribs"> Pork Baby Back Ribs</label>
+                <label><input type="checkbox" name="food_items" value="Crispy Lechon Kawali"> Crispy Lechon Kawali</label>
+            </div>
+
+            <!-- Category 3: Chicken & Seafood (5 items) -->
+            <div class="category"> Chicken & Seafood</div>
+            <div class="item-list">
+                <label><input type="checkbox" name="food_items" value="Chicken Cordon Bleu"> Chicken Cordon Bleu</label>
+                <label><input type="checkbox" name="food_items" value="Chicken Casserole"> Chicken Casserole</label>
+                <label><input type="checkbox" name="food_items" value="Garlic Buttered Shrimp"> Garlic Buttered Shrimp</label>
+                <label><input type="checkbox" name="food_items" value="Sweet & Sour Fish Fillet"> Sweet & Sour Fish Fillet</label>
+                <label><input type="checkbox" name="food_items" value="Fish Fillet with Tartar Dip"> Fish Fillet w/ Tartar Dip</label>
+            </div>
+
+            <!-- Category 4: Pasta & Noodles (5 items) -->
+            <div class="category"> Pasta & Noodles</div>
+            <div class="item-list">
+                <label><input type="checkbox" name="food_items" value="Baked Macaroni"> Baked Macaroni</label>
+                <label><input type="checkbox" name="food_items" value="Classic Carbonara"> Classic Carbonara</label>
+                <label><input type="checkbox" name="food_items" value="Pancit Canton Special"> Pancit Canton Special</label>
+                <label><input type="checkbox" name="food_items" value="Spaghetti Bolognese"> Spaghetti Bolognese</label>
+                <label><input type="checkbox" name="food_items" value="Pesto Penne Pasta"> Pesto Penne Pasta</label>
+            </div>
+
+            <!-- Category 5: Desserts & Beverages (5 items) -->
+            <div class="category"> Desserts & Beverages</div>
+            <div class="item-list">
+                <label><input type="checkbox" name="food_items" value="Mango Graham Cake"> Mango Graham Cake</label>
+                <label><input type="checkbox" name="food_items" value="Creamy Leche Flan"> Creamy Leche Flan</label>
+                <label><input type="checkbox" name="food_items" value="Buko Pandan Salad"> Buko Pandan Salad</label>
+                <label><input type="checkbox" name="food_items" value="Bottomless Red Iced Tea"> Bottomless Red Iced Tea</label>
+                <label><input type="checkbox" name="food_items" value="Cucumber Lemonade"> Cucumber Lemonade</label>
+            </div>
+
+            <button type="submit">Proceed to Payment</button>
+        </form>
+    </div>
+
+</body>
+</html>
